@@ -6,8 +6,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 enum Role {
-  USER
   ADMIN
+  SUPER_ADMIN
 }
 enum Gender {
   MALE
@@ -21,87 +21,13 @@ model User {
   email             String?  @unique
   hashedPassword    String
   hashRefreshToken  String?
-  role              Role     @default(USER)
+  role              Role     @default(ADMIN)
   phoneNumber       String?  @unique
   avatar            String?    
   gender            Gender?
   dateOfBirth       DateTime? 
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
-  follows           Follow[]
+
   @@map("users")
-}
-
-model Otp {
-  id        Int      @id @default(autoincrement())
-  otp       String
-  createdAt DateTime @default(now())
-  expiresAt DateTime
-  email     String
-  verified     Boolean    @default(false)
-  atttempts   Int        @default(0)
-} 
-
-model Artist {
-  id          String   @id
-  name        String
-  website     String?   
-  joindate    DateTime?
-  image       String?
-  tags        String[]
-  description String? 
-  albums      Album[]    
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
-
-model Album {
-  id           String   @id
-  name         String
-  releasedate  DateTime?
-  image        String?
-  artist       Artist   @relation(fields: [artistId], references: [id])
-  artistId     String
-  tracks       Track[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Track {
-  id                     String   @id
-  position               Int
-  name                   String
-  duration               Int
-  license_ccurl          String?
-  audio                  String?
-  audiodownload          String?
-  audiodownload_allowed  Boolean
-  album        Album    @relation(fields: [albumId], references: [id])
-  albumId      String
-}
-
-model Playlist {
-  id           String   @id
-  name         String
-  creationdate DateTime
-  userId       String
-  userName     String
-  zip          String?
-  shortUrl     String?
-  shareUrl     String?
-}
-
-model Follow {
-  id        String   @id
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
-  targetId  String   
-  type      FollowType
-  createdAt DateTime @default(now())
-}
-
-enum FollowType {
-  ARTIST
-  PLAYLIST
-  ALBUM
 }
