@@ -22,7 +22,7 @@ export class PatientController {
   }
 
   @Get()
-  public async findAll(@Query('page', ParseIntPipe) page:number =1, @Query('limit', ParseIntPipe) limit : number = 1) {
+  public async findAll(@Query('page', ParseIntPipe) page:number = 1, @Query('limit', ParseIntPipe) limit : number = 10) {
     return await this.patientService.findAll(page, limit);
   }
 

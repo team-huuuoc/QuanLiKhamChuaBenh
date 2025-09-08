@@ -17,4 +17,5 @@ export const AppMessage = {
   OTP_REQUESTED_SUCCESSFULLY: 'OTP requested successfully',
   OTP_VERIFIED_SUCCESSFULLY: 'OTP verified successfully',
   UPLOADED_SUCCESSFULLY: 'Uploaded successfully',
+  TAI_DU_LIEU_THANH_CONG: 'Tải dữ liệu thành công'
 };
