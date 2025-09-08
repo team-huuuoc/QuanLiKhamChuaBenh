@@ -6,7 +6,7 @@ async function main() {
   const doctors = [
     // Khoa Nội tổng hợp
     {
-      id: 'D001',
+      identify: 'D001',
       name: 'BS. Nguyễn Thanh Hùng',
       specialty: 'Nội tổng hợp',
       department: 'Khoa Nội',
@@ -16,7 +16,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'D002',
+      identify: 'D002',
       name: 'BS. Trần Thị Mai',
       specialty: 'Nội tiêu hóa',
       department: 'Khoa Nội',
@@ -26,7 +26,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'D003',
+      identify: 'D003',
       name: 'BS. Lê Văn Phong',
       specialty: 'Nội thận',
       department: 'Khoa Nội',
@@ -37,7 +37,7 @@ async function main() {
     },
     // Khoa Ngoại
     {
-      id: 'D004',
+      identify: 'D004',
       name: 'BS. Phạm Minh Tuấn',
       specialty: 'Ngoại tổng hợp',
       department: 'Khoa Ngoại',
@@ -47,7 +47,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'D005',
+      identify: 'D005',
       name: 'BS. Vũ Thị Lan',
       specialty: 'Ngoại lồng ngực',
       department: 'Khoa Ngoại',
@@ -57,7 +57,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'D006',
+      identify: 'D006',
       name: 'BS. Đỗ Văn Kiên',
       specialty: 'Ngoại tiêu hóa',
       department: 'Khoa Ngoại',
@@ -68,7 +68,7 @@ async function main() {
     },
     // Khoa Tim mạch
     {
-      id: 'D007',
+      identify: 'D007',
       name: 'BS. Nguyễn Thị Hồng',
       specialty: 'Tim mạch can thiệp',
       department: 'Khoa Tim mạch',
@@ -78,7 +78,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'D008',
+      identify: 'D008',
       name: 'BS. Trần Văn Đức',
       specialty: 'Tim mạch',
       department: 'Khoa Tim mạch',
@@ -89,7 +89,7 @@ async function main() {
     },
     // Khoa Sản
     {
-      id: 'D009',
+      identify: 'D009',
       name: 'BS. Lê Thị Ngọc',
       specialty: 'Sản phụ khoa',
       department: 'Khoa Sản',
@@ -99,7 +99,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'D010',
+      identify: 'D010',
       name: 'BS. Phạm Văn Hải',
       specialty: 'Sản khoa',
       department: 'Khoa Sản',
@@ -110,7 +110,7 @@ async function main() {
     },
     // Khoa Nhi
     {
-      id: 'D011',
+      identify: 'D011',
       name: 'BS. Vũ Thị Thu',
       specialty: 'Nhi khoa',
       department: 'Khoa Nhi',
@@ -120,7 +120,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'D012',
+      identify: 'D012',
       name: 'BS. Đỗ Minh Hoàng',
       specialty: 'Nhi hô hấp',
       department: 'Khoa Nhi',
@@ -131,7 +131,7 @@ async function main() {
     },
     // Khoa Thần kinh
     {
-      id: 'D013',
+      identify: 'D013',
       name: 'BS. Nguyễn Văn Trung',
       specialty: 'Thần kinh',
       department: 'Khoa Thần kinh',
@@ -141,7 +141,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'D014',
+      identify: 'D014',
       name: 'BS. Trần Thị Linh',
       specialty: 'Thần kinh can thiệp',
       department: 'Khoa Thần kinh',
@@ -152,7 +152,7 @@ async function main() {
     },
     // Khoa Chấn thương chỉnh hình
     {
-      id: 'D015',
+      identify: 'D015',
       name: 'BS. Lê Văn Mạnh',
       specialty: 'Chấn thương chỉnh hình',
       department: 'Khoa Chấn thương chỉnh hình',
@@ -162,7 +162,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'D016',
+      identify: 'D016',
       name: 'BS. Phạm Thị Yến',
       specialty: 'Cột sống',
       department: 'Khoa Chấn thương chỉnh hình',
@@ -173,7 +173,7 @@ async function main() {
     },
     // Khoa Mắt
     {
-      id: 'D017',
+      identify: 'D017',
       name: 'BS. Vũ Văn Nam',
       specialty: 'Nhãn khoa',
       department: 'Khoa Mắt',
@@ -184,7 +184,7 @@ async function main() {
     },
     // Khoa Tai mũi họng
     {
-      id: 'D018',
+      identify: 'D018',
       name: 'BS. Đỗ Thị Hương',
       specialty: 'Tai mũi họng',
       department: 'Khoa Tai mũi họng',
@@ -195,7 +195,7 @@ async function main() {
     },
     // Khoa Hồi sức cấp cứu
     {
-      id: 'D019',
+      identify: 'D019',
       name: 'BS. Nguyễn Thị Phương',
       specialty: 'Hồi sức cấp cứu',
       department: 'Khoa Hồi sức cấp cứu',
@@ -205,7 +205,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'D020',
+      identify: 'D020',
       name: 'BS. Trần Văn Quang',
       specialty: 'Cấp cứu',
       department: 'Khoa Hồi sức cấp cứu',
@@ -216,7 +216,7 @@ async function main() {
     },
     // Khoa Da liễu
     {
-      id: 'D021',
+      identify: 'D021',
       name: 'BS. Lê Thị Xuân',
       specialty: 'Da liễu',
       department: 'Khoa Da liễu',
@@ -227,7 +227,7 @@ async function main() {
     },
     // Khoa Ung bướu
     {
-      id: 'D022',
+      identify: 'D022',
       name: 'BS. Phạm Văn Thành',
       specialty: 'Ung bướu',
       department: 'Khoa Ung bướu',
@@ -238,7 +238,7 @@ async function main() {
     },
     // Bổ sung cho đủ 25
     {
-      id: 'D023',
+      identify: 'D023',
       name: 'BS. Nguyễn Thị Lan',
       specialty: 'Nội tiết',
       department: 'Khoa Nội',
@@ -248,7 +248,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'D024',
+      identify: 'D024',
       name: 'BS. Trần Văn Hưng',
       specialty: 'Huyết học',
       department: 'Khoa Nội',
@@ -258,7 +258,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'D025',
+      identify: 'D025',
       name: 'BS. Lê Thị Minh',
       specialty: 'Phục hồi chức năng',
       department: 'Khoa Phục hồi chức năng',

@@ -16,6 +16,7 @@ const message_key = {
     "New password cannot be the same as your current password. Please create a new one!",
   ERR00045: "OTP is expired.",
   ERR00046: "The OTP code has not been sent yet.",
+  ERR00047: "CMND/CCCD  đã tồn tại trong hệ thống. Vui lòng kiểm tra lại.",
 };
 
 export default message_key;

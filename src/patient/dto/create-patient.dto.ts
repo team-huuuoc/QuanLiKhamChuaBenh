@@ -3,7 +3,6 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsDateString,
   IsEnum,
   IsPhoneNumber,
   Length,
@@ -11,6 +10,11 @@ import {
 } from "class-validator"
 
 export class CreatePatientDto {
+  
+  @IsNotEmpty()
+  @IsString()
+  identify:string
+
   @IsNotEmpty()
   @IsString()
   name: string
@@ -21,10 +25,10 @@ export class CreatePatientDto {
   idNumber: string
 
   @IsNotEmpty()
-  @Matches(/^\d{2}\/\d{2}\/\d{4}$/,{
-    message: "dateOfBirth phải có định dạng dd/MM/yyyy",
+  @Matches(/^\d{4}-\d{2}-\d{2}$/, {
+    message: "dateOfBirth phải có định dạng yyyy-MM-dd",
   })
-  dateOfBirth: string
+  dateOfBirth: string; 
 
   @IsNotEmpty()
   @IsEnum(Gender) 

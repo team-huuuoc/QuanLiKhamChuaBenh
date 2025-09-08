@@ -22,7 +22,8 @@
     "generate": "prisma generate",
     "resetdb": "prisma migrate reset",
     "seed:doctors": "ts-node prisma/seeds/seed.doctors.ts",
-    "seed:nurses": "ts-node prisma/seeds/seed.nurses.ts"
+    "seed:nurses": "ts-node prisma/seeds/seed.nurses.ts",
+    "seed:patients": "ts-node prisma/seeds/seed.patients.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

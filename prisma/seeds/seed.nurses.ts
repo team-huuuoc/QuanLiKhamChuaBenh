@@ -6,7 +6,7 @@ async function main() {
   const nurses = [
     // Khoa Nội (10 nurses)
     {
-      id: 'N001',
+      identify: 'N001',
       name: 'ĐD. Nguyễn Thị Hoa',
       department: 'Khoa Nội',
       shift: 'Sáng',
@@ -16,7 +16,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N002',
+      identify: 'N002',
       name: 'ĐD. Trần Văn Bình',
       department: 'Khoa Nội',
       shift: 'Chiều',
@@ -26,7 +26,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N003',
+      identify: 'N003',
       name: 'ĐD. Lê Thị Cúc',
       department: 'Khoa Nội',
       shift: 'Tối',
@@ -36,7 +36,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N004',
+      identify: 'N004',
       name: 'ĐD. Phạm Văn Đạt',
       department: 'Khoa Nội',
       shift: 'Sáng',
@@ -46,7 +46,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N031',
+      identify: 'N031',
       name: 'ĐD. Nguyễn Thị Oanh',
       department: 'Khoa Nội',
       shift: 'Chiều',
@@ -56,7 +56,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N032',
+      identify: 'N032',
       name: 'ĐD. Trần Văn Dũng',
       department: 'Khoa Nội',
       shift: 'Tối',
@@ -66,7 +66,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N033',
+      identify: 'N033',
       name: 'ĐD. Lê Thị Quang',
       department: 'Khoa Nội',
       shift: 'Sáng',
@@ -76,7 +76,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N034',
+      identify: 'N034',
       name: 'ĐD. Phạm Thị Ngọc',
       department: 'Khoa Nội',
       shift: 'Chiều',
@@ -86,7 +86,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N035',
+      identify: 'N035',
       name: 'ĐD. Vũ Văn Tài',
       department: 'Khoa Nội',
       shift: 'Tối',
@@ -96,7 +96,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N036',
+      identify: 'N036',
       name: 'ĐD. Đỗ Thị Hạnh',
       department: 'Khoa Nội',
       shift: 'Sáng',
@@ -108,7 +108,7 @@ async function main() {
 
     // Khoa Ngoại (8 nurses)
     {
-      id: 'N005',
+      identify: 'N005',
       name: 'ĐD. Vũ Thị Dung',
       department: 'Khoa Ngoại',
       shift: 'Sáng',
@@ -118,7 +118,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N006',
+      identify: 'N006',
       name: 'ĐD. Đỗ Văn Giang',
       department: 'Khoa Ngoại',
       shift: 'Chiều',
@@ -128,7 +128,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N007',
+      identify: 'N007',
       name: 'ĐD. Nguyễn Thị Hằng',
       department: 'Khoa Ngoại',
       shift: 'Tối',
@@ -138,7 +138,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N008',
+      identify: 'N008',
       name: 'ĐD. Trần Văn Hiếu',
       department: 'Khoa Ngoại',
       shift: 'Sáng',
@@ -148,7 +148,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N037',
+      identify: 'N037',
       name: 'ĐD. Lê Văn Khoa',
       department: 'Khoa Ngoại',
       shift: 'Chiều',
@@ -158,7 +158,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N038',
+      identify: 'N038',
       name: 'ĐD. Phạm Thị Linh',
       department: 'Khoa Ngoại',
       shift: 'Tối',
@@ -168,7 +168,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N039',
+      identify: 'N039',
       name: 'ĐD. Vũ Văn Minh',
       department: 'Khoa Ngoại',
       shift: 'Sáng',
@@ -178,7 +178,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N040',
+      identify: 'N040',
       name: 'ĐD. Đỗ Thị Uyên',
       department: 'Khoa Ngoại',
       shift: 'Chiều',
@@ -190,7 +190,7 @@ async function main() {
 
     // Khoa Tim mạch (6 nurses)
     {
-      id: 'N009',
+      identify: 'N009',
       name: 'ĐD. Lê Thị Kim',
       department: 'Khoa Tim mạch',
       shift: 'Sáng',
@@ -200,7 +200,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N010',
+      identify: 'N010',
       name: 'ĐD. Phạm Văn Long',
       department: 'Khoa Tim mạch',
       shift: 'Chiều',
@@ -210,7 +210,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N011',
+      identify: 'N011',
       name: 'ĐD. Vũ Thị Mai',
       department: 'Khoa Tim mạch',
       shift: 'Tối',
@@ -220,7 +220,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N041',
+      identify: 'N041',
       name: 'ĐD. Nguyễn Văn Nam',
       department: 'Khoa Tim mạch',
       shift: 'Sáng',
@@ -230,7 +230,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N042',
+      identify: 'N042',
       name: 'ĐD. Trần Thị Oanh',
       department: 'Khoa Tim mạch',
       shift: 'Chiều',
@@ -240,7 +240,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N043',
+      identify: 'N043',
       name: 'ĐD. Lê Văn Phúc',
       department: 'Khoa Tim mạch',
       shift: 'Tối',
@@ -252,7 +252,7 @@ async function main() {
 
     // Khoa Sản (5 nurses)
     {
-      id: 'N012',
+      identify: 'N012',
       name: 'ĐD. Đỗ Thị Nga',
       department: 'Khoa Sản',
       shift: 'Sáng',
@@ -262,7 +262,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N013',
+      identify: 'N013',
       name: 'ĐD. Nguyễn Văn Phúc',
       department: 'Khoa Sản',
       shift: 'Chiều',
@@ -272,7 +272,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N014',
+      identify: 'N014',
       name: 'ĐD. Trần Thị Quỳnh',
       department: 'Khoa Sản',
       shift: 'Tối',
@@ -282,7 +282,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N044',
+      identify: 'N044',
       name: 'ĐD. Lê Thị Thanh',
       department: 'Khoa Sản',
       shift: 'Sáng',
@@ -292,7 +292,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N045',
+      identify: 'N045',
       name: 'ĐD. Phạm Văn Tùng',
       department: 'Khoa Sản',
       shift: 'Chiều',
@@ -304,7 +304,7 @@ async function main() {
 
     // Khoa Nhi (4 nurses)
     {
-      id: 'N015',
+      identify: 'N015',
       name: 'ĐD. Lê Văn Sơn',
       department: 'Khoa Nhi',
       shift: 'Sáng',
@@ -314,7 +314,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N016',
+      identify: 'N016',
       name: 'ĐD. Phạm Thị Thủy',
       department: 'Khoa Nhi',
       shift: 'Chiều',
@@ -324,7 +324,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N046',
+      identify: 'N046',
       name: 'ĐD. Vũ Văn Việt',
       department: 'Khoa Nhi',
       shift: 'Tối',
@@ -334,7 +334,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N047',
+      identify: 'N047',
       name: 'ĐD. Đỗ Thị Xuân',
       department: 'Khoa Nhi',
       shift: 'Sáng',
@@ -346,7 +346,7 @@ async function main() {
 
     // Khoa Thần kinh (3 nurses)
     {
-      id: 'N018',
+      identify: 'N018',
       name: 'ĐD. Đỗ Thị Uyên',
       department: 'Khoa Thần kinh',
       shift: 'Sáng',
@@ -356,7 +356,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N019',
+      identify: 'N019',
       name: 'ĐD. Nguyễn Văn Vinh',
       department: 'Khoa Thần kinh',
       shift: 'Chiều',
@@ -366,7 +366,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N048',
+      identify: 'N048',
       name: 'ĐD. Trần Thị Yến',
       department: 'Khoa Thần kinh',
       shift: 'Tối',
@@ -378,7 +378,7 @@ async function main() {
 
     // Khoa Chấn thương chỉnh hình (3 nurses)
     {
-      id: 'N021',
+      identify: 'N021',
       name: 'ĐD. Lê Văn Yên',
       department: 'Khoa Chấn thương chỉnh hình',
       shift: 'Sáng',
@@ -388,7 +388,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N022',
+      identify: 'N022',
       name: 'ĐD. Phạm Thị An',
       department: 'Khoa Chấn thương chỉnh hình',
       shift: 'Chiều',
@@ -398,7 +398,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N049',
+      identify: 'N049',
       name: 'ĐD. Vũ Văn An',
       department: 'Khoa Chấn thương chỉnh hình',
       shift: 'Tối',
@@ -410,7 +410,7 @@ async function main() {
 
     // Other departments (remaining 6 nurses)
     {
-      id: 'N024',
+      identify: 'N024',
       name: 'ĐD. Đỗ Thị Chi',
       department: 'Khoa Mắt',
       shift: 'Sáng',
@@ -420,7 +420,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N026',
+      identify: 'N026',
       name: 'ĐD. Trần Thị Hạnh',
       department: 'Khoa Tai mũi họng',
       shift: 'Sáng',
@@ -430,7 +430,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N028',
+      identify: 'N028',
       name: 'ĐD. Phạm Thị Liên',
       department: 'Khoa Hồi sức cấp cứu',
       shift: 'Sáng',
@@ -440,7 +440,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N029',
+      identify: 'N029',
       name: 'ĐD. Vũ Văn Minh',
       department: 'Khoa Hồi sức cấp cứu',
       shift: 'Chiều',
@@ -450,7 +450,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N030',
+      identify: 'N030',
       name: 'ĐD. Đỗ Thị Ngân',
       department: 'Khoa Hồi sức cấp cứu',
       shift: 'Tối',
@@ -460,7 +460,7 @@ async function main() {
       status: EmploymentStatus.ACTIVE,
     },
     {
-      id: 'N050',
+      identify: 'N050',
       name: 'ĐD. Nguyễn Thị Bình',
       department: 'Khoa Da liễu',
       shift: 'Sáng',

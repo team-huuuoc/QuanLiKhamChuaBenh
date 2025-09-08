@@ -13,4 +13,5 @@ export class ErrorCode {
   static readonly PASSWORD_MATCH_OLD_PASSWORD: string = "ERR00044";
   static readonly OTP_IS_EXPIRED: string = "ERR00045";
   static readonly OTP_NOT_SENT: string = "ERR00046";
+  static readonly ID_NUMBER_IS_EXIST: string = "ERR00047"
 }
