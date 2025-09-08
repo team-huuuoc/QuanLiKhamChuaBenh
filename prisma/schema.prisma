@@ -14,6 +14,12 @@ enum Gender {
   FEMALE
   OTHER
 }
+enum PatientStatus {
+  DANG_DIEU_TRI
+  CHO_KHAM
+  XUAT_VIEN
+  NOI_TRU
+}
 
 model User {
   id                Int      @id @default(autoincrement())
@@ -30,4 +36,48 @@ model User {
   updatedAt         DateTime @updatedAt
 
   @@map("users")
+}
+model Doctor {
+  id         String    @id @default(cuid())
+  name       String
+  specialty  String
+  department String
+  phone      String
+  email      String    @unique
+  experience Int
+  status     String
+  patients   Patient[]
+}
+
+model Nurse {
+  id         String    @id @default(cuid())
+  name       String
+  department String
+  phone      String
+  email      String    @unique
+  shift      String
+  experience Int
+  status     String
+  patients   Patient[]
+}
+model Patient {
+  id               String        @id @default(cuid())
+  name             String
+  dateOfBirth      DateTime
+  gender           Gender
+  phone            String
+  address          String
+  idNumber         String        @unique
+  insurance        String?
+  emergencyContact String
+  createdAt        DateTime      @default(now())
+  status           PatientStatus
+  roomNumber       String?
+  admissionDate    DateTime?
+
+  doctorId String?
+  nurseId  String?
+
+  doctor   Doctor?       @relation(fields: [doctorId], references: [id])
+  nurse    Nurse?        @relation(fields: [nurseId], references: [id])
 }

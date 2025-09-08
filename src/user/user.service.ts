@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { PaginationDto } from './dto/pagination.dto';
 import { UnauthorizedError } from '../response/HttpErrors';
 import { ErrorCode } from '../response/ErrorCode';
 

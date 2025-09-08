@@ -10,7 +10,6 @@ import {
 import { ErrorCode } from '../response/ErrorCode';
 import { UserService } from '../user/user.service';
 import { ConfigService } from '@nestjs/config';
-import { OtpService } from '../otp/otp.service';
 import { compareData, hashData } from '../libs/bcrypt/handle.password';
 import { RegisterByEmailDto } from './dto/register-by-email.dto';
 import { RegisterByPhoneDto } from './dto/register-by-phone.dto';
@@ -20,14 +19,13 @@ export class AuthService {
     private readonly prismaService: PrismaService,
     private readonly jwtService: JwtService,
     private readonly userService: UserService,
-    private readonly configService: ConfigService,
-    private readonly otpService: OtpService,
+    private readonly configService: ConfigService
   ) {}
   public async registerByEmail(userInput: RegisterByEmailDto) {
     let user = await this.userService.getUserByEmail(userInput.email);
     if (user) throw new ConflictError(ErrorCode.EMAIL_IS_EXISTS);
     const hashPassword = await hashData(userInput.password);
-    await this.otpService.verifyOtp(userInput.email, userInput.code);
+    // await this.otpService.verifyOtp(userInput.email, userInput.code);
     return await this.prismaService.user.create({
       data: {
         hashedPassword: hashPassword,
@@ -61,7 +59,7 @@ export class AuthService {
       return token;
     }
     if (userInput.code) {
-      await this.otpService.verifyOtp(user.email, userInput.code);
+      // await this.otpService.verifyOtp(user.email, userInput.code);
       const token = await this._generateToken(user.id, user.email, user.name);
       await this._updateRtHash(user.id, token.refreshToken);
       return token;
