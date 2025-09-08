@@ -20,6 +20,11 @@ enum PatientStatus {
   XUAT_VIEN
   NOI_TRU
 }
+enum EmploymentStatus {
+  ACTIVE
+  INACTIVE
+  ON_LEAVE
+}
 
 model User {
   id                Int      @id @default(autoincrement())
@@ -45,7 +50,7 @@ model Doctor {
   phone      String
   email      String    @unique
   experience Int
-  status     String
+  status     EmploymentStatus   @default(ACTIVE)
   patients   Patient[]
 }
 
@@ -57,11 +62,12 @@ model Nurse {
   email      String    @unique
   shift      String
   experience Int
-  status     String
+  status     EmploymentStatus   @default(ACTIVE)
   patients   Patient[]
 }
 model Patient {
-  id               String        @id @default(cuid())
+  id               Int        @id @default(id)
+  indentify        String
   name             String
   dateOfBirth      DateTime
   gender           Gender

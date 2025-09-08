@@ -1,0 +1,43 @@
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus } from '@nestjs/common';
+import { PatientService } from './patient.service';
+import { CreatePatientDto } from './dto/create-patient.dto';
+import { UpdatePatientDto } from './dto/update-patient.dto';
+import { StandardResponse } from 'src/response/StandardResponse';
+import { AppMessage } from 'src/response/AppMessage';
+
+@Controller('patients')
+export class PatientController {
+  constructor(private readonly patientService: PatientService) {}
+
+  @Post()
+  public async create(@Body() createPatientDto: CreatePatientDto) {
+    const data = await this.patientService.create(createPatientDto);
+    const response: StandardResponse= {
+      success: true,
+      code: HttpStatus.CREATED,
+      message: AppMessage.ADDED_SUCCESSFULLY,
+      data,
+    }
+    return response;
+  }
+
+  @Get()
+  findAll() {
+    return this.patientService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.patientService.findOne(+id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updatePatientDto: UpdatePatientDto) {
+    return this.patientService.update(+id, updatePatientDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.patientService.remove(+id);
+  }
+}

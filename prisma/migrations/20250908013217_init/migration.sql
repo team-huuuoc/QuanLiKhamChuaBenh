@@ -3,7 +3,7 @@ CREATE TYPE "Role" AS ENUM ('ADMIN', 'SUPER_ADMIN');
 
 -- CreateEnum
 CREATE TYPE "Gender" AS ENUM ('MALE', 'FEMALE', 'OTHER');
-
+CREATE TYPE "EmploymentStatus" AS ENUM ('ACTIVE', 'INACTIVE', 'ON_LEAVE');
 -- CreateEnum
 CREATE TYPE "PatientStatus" AS ENUM ('DANG_DIEU_TRI', 'CHO_KHAM', 'XUAT_VIEN', 'NOI_TRU');
 
