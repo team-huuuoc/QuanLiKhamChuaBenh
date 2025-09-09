@@ -82,7 +82,7 @@ model Patient {
   status           PatientStatus
   roomNumber       String?
   admissionDate    DateTime?
-
+  notes            String?
   doctorId Int?
   nurseId  Int?
 

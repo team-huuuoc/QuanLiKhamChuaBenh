@@ -55,8 +55,11 @@ export class PatientService {
     })
   }
 
-  update(id: number, updatePatientDto: UpdatePatientDto) {
-    return `This action updates a #${id} patient`;
+  public async update(id: number, updatePatientDto: UpdatePatientDto) {
+    return await this.prismaService.patient.update({
+      where: {id},
+      data: {...updatePatientDto}
+    })
   }
 
   remove(id: number) {
