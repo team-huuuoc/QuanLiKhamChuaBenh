@@ -4,6 +4,7 @@ import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
 import { StandardResponse } from 'src/response/StandardResponse';
 import { AppMessage } from 'src/response/AppMessage';
+import { PatientStatus } from '@prisma/client';
 
 @Controller('patients')
 export class PatientController {
@@ -22,8 +23,12 @@ export class PatientController {
   }
 
   @Get()
-  public async findAll(@Query('page', ParseIntPipe) page:number = 1, @Query('limit', ParseIntPipe) limit : number = 10) {
-    return await this.patientService.findAll(page, limit);
+  public async findAll(
+    @Query('page', ParseIntPipe) page:number = 1,
+    @Query('limit', ParseIntPipe) limit : number = 10,
+    @Query('status') status?: PatientStatus,
+    @Query('search') searchString?: string) {
+    return await this.patientService.findAll(page, limit, searchString, status);
   }
 
   @Get('/summary')

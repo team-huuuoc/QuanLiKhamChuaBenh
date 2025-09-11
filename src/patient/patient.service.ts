@@ -6,6 +6,7 @@ import { handleDate } from 'src/libs/handleDate/handle.date';
 import { ErrorCode } from 'src/response/ErrorCode';
 import { ConflictError } from 'src/response/HttpErrors';
 import { CreateMedicalRecordDto } from 'src/medical-record/dto/create-medical-record.dto';
+import { PatientStatus } from '@prisma/client';
 
 @Injectable()
 export class PatientService {
@@ -22,32 +23,48 @@ export class PatientService {
     return user
   }
 
-  public async findAll(page: number, limit: number) {
+  public async findAll(page: number, limit: number, search?: string, status?: PatientStatus) {
     const skip = (page - 1) * limit;
-
-  const [data, total] = await Promise.all([
-    this.prismaService.patient.findMany({
-      skip,
-      orderBy: { id: 'desc' },
-      take: limit,
-      include: {
-        doctor: true,
-        nurse: true,
+  
+    const where: any = {};
+  
+    if (status) {
+      where.status = status;
+    }
+  
+    if (search) {
+      where.OR = [
+        { name: { contains: search, mode: 'insensitive' } },
+        { doctor: { name: { contains: search, mode: 'insensitive' } } },
+        { nurse: { name: { contains: search, mode: 'insensitive' } } },
+      ];
+    }
+  
+    const [data, total] = await Promise.all([
+      this.prismaService.patient.findMany({
+        skip,
+        take: limit,
+        orderBy: { id: 'desc' },
+        where,
+        include: {
+          doctor: true,
+          nurse: true,
+        },
+      }),
+      this.prismaService.patient.count({ where }),
+    ]);
+  
+    return {
+      data,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
       },
-    }),
-    this.prismaService.patient.count(),
-  ]);
-
-  return {
-    data,
-    meta: {
-      total,
-      page,
-      limit,
-      totalPages: Math.ceil(total / limit),
-    },
-  };
+    };
   }
+  
 
   public async update(id: number, updatePatientDto: UpdatePatientDto) {
     return await this.prismaService.patient.update({
