@@ -3,9 +3,9 @@ import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleDate } from 'src/libs/handleDate/handle.date';
-import { NotFoundError } from 'rxjs';
 import { ErrorCode } from 'src/response/ErrorCode';
 import { ConflictError } from 'src/response/HttpErrors';
+import { CreateMedicalRecordDto } from 'src/medical-record/dto/create-medical-record.dto';
 
 @Injectable()
 export class PatientService {
@@ -49,12 +49,6 @@ export class PatientService {
   };
   }
 
-  public async findOne(id: number) {
-    return await this.prismaService.patient.findUnique({
-      where: {id}
-    })
-  }
-
   public async update(id: number, updatePatientDto: UpdatePatientDto) {
     return await this.prismaService.patient.update({
       where: {id},
@@ -62,9 +56,25 @@ export class PatientService {
     })
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} patient`;
+  public async getStatusSummary(){
+    const result = await this.prismaService.patient.groupBy({
+      by: ['status'],
+      _count: {status: true}
+    });
+    // Tổng số bản ghi
+    const total = result.reduce((sum, r)=> sum + r._count.status, 0);
+    const byStatus = result.reduce((acc, r)=>{
+      acc[r.status] = r._count.status;
+      return acc;
+    }, {} as Record<string, number>);
+    return {
+      data: {
+        total,
+        byStatus
+      }
+    }
   }
+
   private async checkIdNumber(idNumber: string){
     const patient = await this.prismaService.patient.findUnique({
       where: {idNumber}

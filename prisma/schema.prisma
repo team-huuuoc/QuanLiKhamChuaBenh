@@ -25,7 +25,12 @@ enum EmploymentStatus {
   INACTIVE
   ON_LEAVE
 }
-
+enum TreatmentStatus{
+  UNDER_TREATMENT
+  COMPLETED
+  UNDER_MONITORING
+  TRANSFERRED
+}
 model User {
   id                Int      @id @default(autoincrement())
   name              String
@@ -53,6 +58,7 @@ model Doctor {
   experience Int
   status     EmploymentStatus   @default(ACTIVE)
   patients   Patient[]
+  medicalRecords  MedicalRecord[]
 }
 
 model Nurse {
@@ -83,9 +89,24 @@ model Patient {
   roomNumber       String?
   admissionDate    DateTime?
   notes            String?
-  doctorId Int?
-  nurseId  Int?
+  doctorId         Int?
+  nurseId          Int?
 
-  doctor   Doctor?       @relation(fields: [doctorId], references: [id])
-  nurse    Nurse?        @relation(fields: [nurseId], references: [id])
+  doctor           Doctor?       @relation(fields: [doctorId], references: [id])
+  nurse            Nurse?        @relation(fields: [nurseId], references: [id])
+  medicalRecords   MedicalRecord[]
+}
+
+model MedicalRecord {
+  id        Int       @id @default(autoincrement())
+  patientId Int
+  doctorId  Int
+  date      DateTime
+  diagnosis String
+  treatment String
+  symptoms  String
+  notes     String?
+  status    TreatmentStatus @default(UNDER_TREATMENT) 
+  Doctor    Doctor   @relation(fields: [doctorId], references: [id])
+  Patient   Patient  @relation(fields: [patientId], references: [id])
 }

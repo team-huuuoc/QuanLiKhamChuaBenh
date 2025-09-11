@@ -1,0 +1,5 @@
+-- CreateEnum
+CREATE TYPE "TreatmentStatus" AS ENUM ('UNDER_TREATMENT', 'COMPLETED', 'UNDER_MONITORING', 'TRANSFERRED');
+
+-- AlterTable
+ALTER TABLE "MedicalRecord" ADD COLUMN     "status" "TreatmentStatus" NOT NULL DEFAULT 'UNDER_TREATMENT';

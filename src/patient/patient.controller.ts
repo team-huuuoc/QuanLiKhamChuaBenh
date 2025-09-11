@@ -26,18 +26,23 @@ export class PatientController {
     return await this.patientService.findAll(page, limit);
   }
 
-  @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.patientService.findOne(id);
+  @Get('/summary')
+  public async getSummary(){
+    return await this.patientService.getStatusSummary()
   }
 
   @Put(':id')
   public async update(@Param('id') id: string, @Body() updatePatientDto: UpdatePatientDto) {
     return await this.patientService.update(+id, updatePatientDto);
   }
+  
+  // @Get(':id')
+  // findOne(@Param('id', ParseIntPipe) id: number) {
+  //   return this.patientService.findOne(id);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.patientService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.patientService.remove(+id);
+  // }
 }
