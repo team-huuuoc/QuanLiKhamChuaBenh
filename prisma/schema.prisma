@@ -1,64 +1,75 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 enum Role {
   ADMIN
   SUPER_ADMIN
 }
+
 enum Gender {
   MALE
   FEMALE
   OTHER
 }
+
 enum PatientStatus {
   DANG_DIEU_TRI
   CHO_KHAM
   XUAT_VIEN
   NOI_TRU
 }
+
 enum EmploymentStatus {
   ACTIVE
   INACTIVE
   ON_LEAVE
 }
-enum TreatmentStatus{
+
+enum TreatmentStatus {
   UNDER_TREATMENT
   COMPLETED
   UNDER_MONITORING
   TRANSFERRED
 }
+
 model User {
-  id                Int      @id @default(autoincrement())
-  name              String
-  email             String?  @unique
-  hashedPassword    String
-  hashRefreshToken  String?
-  role              Role     @default(ADMIN)
-  phoneNumber       String?  @unique
-  avatar            String?    
-  gender            Gender?
-  dateOfBirth       DateTime? 
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id               Int      @id @default(autoincrement())
+  name             String
+  email            String?  @unique
+  hashedPassword   String
+  hashRefreshToken String?
+  role             Role     @default(ADMIN)
+  phoneNumber      String?  @unique
+  avatar           String?
+  gender           Gender?
+  dateOfBirth      DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
   @@map("users")
 }
+
 model Doctor {
-  id         Int    @id @default(autoincrement())
-  identify   String
-  name       String
-  specialty  String
-  department String
-  phone      String
-  email      String    @unique
-  experience Int
-  status     EmploymentStatus   @default(ACTIVE)
-  patients   Patient[]
-  medicalRecords  MedicalRecord[]
+  id             Int              @id @default(autoincrement())
+  identify       String
+  name           String
+  specialty      String
+  department     String
+  phone          String
+  email          String           @unique
+  experience     Int
+  status         EmploymentStatus @default(ACTIVE)
+  patients       Patient[]
+  medicalRecords MedicalRecord[]
+  technicianResults TestResult[] @relation("TechnicianTestResults")
+  reviewerResults   TestResult[] @relation("ReviewerTestResults")
+  approverResults   TestResult[] @relation("ApproverTestResults")
 }
 
 model Nurse {
@@ -67,24 +78,25 @@ model Nurse {
   name       String
   department String
   phone      String
-  email      String    @unique
+  email      String  @unique
   shift      String
   experience Int
-  status     EmploymentStatus   @default(ACTIVE)
+  status     EmploymentStatus @default(ACTIVE)
   patients   Patient[]
 }
+
 model Patient {
-  id               Int        @id @default(autoincrement())
+  id               Int             @id @default(autoincrement())
   identify         String
   name             String
   dateOfBirth      DateTime
   gender           Gender
   phone            String
   address          String
-  idNumber         String        @unique
+  idNumber         String          @unique
   insurance        String?
   emergencyContact String
-  createdAt        DateTime      @default(now())
+  createdAt        DateTime        @default(now())
   status           PatientStatus
   roomNumber       String?
   admissionDate    DateTime?
@@ -92,13 +104,13 @@ model Patient {
   doctorId         Int?
   nurseId          Int?
 
-  doctor           Doctor?       @relation(fields: [doctorId], references: [id])
-  nurse            Nurse?        @relation(fields: [nurseId], references: [id])
+  doctor           Doctor?         @relation(fields: [doctorId], references: [id])
+  nurse            Nurse?          @relation(fields: [nurseId], references: [id])
   medicalRecords   MedicalRecord[]
 }
 
 model MedicalRecord {
-  id        Int       @id @default(autoincrement())
+  id        Int          @id @default(autoincrement())
   patientId Int
   doctorId  Int
   date      DateTime
@@ -106,7 +118,129 @@ model MedicalRecord {
   treatment String
   symptoms  String
   notes     String?
-  status    TreatmentStatus @default(UNDER_TREATMENT) 
+  status    TreatmentStatus @default(UNDER_TREATMENT)
+
   Doctor    Doctor   @relation(fields: [doctorId], references: [id])
   Patient   Patient  @relation(fields: [patientId], references: [id])
+  TestResults TestResult[]
+}
+
+model TestCategory {
+  id           Int   @id @default(autoincrement())
+  name         String
+  description  String?
+  displayOrder Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("test_categories")
+  TestTypes TestType[]
+}
+
+model TestType {
+  id                  Int   @id @default(autoincrement())
+  categoryId          Int
+  name                String
+  code                String?  @unique
+  description         String?
+  referenceRange      String?
+  unit                String?
+  normalValues        String?
+  specimenType        String?
+  processingTimeHours Int      @default(24)
+  cost                Decimal? @db.Decimal(10,2)
+  isActive            Boolean  @default(true)
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @default(now()) @updatedAt @map("updated_at")
+
+  category TestCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  TestResults TestResult[]
+
+  @@map("test_types")
+}
+
+model TestSpecimen {
+  id                     Int   @id @default(autoincrement())
+  name                   String
+  description            String?
+  collectionInstructions String?  @map("collection_instructions")
+  storageRequirements    String?  @map("storage_requirements")
+  isActive               Boolean  @default(true)
+  createdAt              DateTime @default(now()) @map("created_at")
+
+  TestResults TestResult[]
+
+  @@map("test_specimens")
+}
+
+enum Interpretation {
+  NORMAL
+  ABNORMAL_LOW
+  ABNORMAL_HIGH
+  CRITICAL
+  PENDING
+}
+
+enum TestResultStatus {
+  SAMPLE_COLLECTED
+  IN_PROGRESS
+  COMPLETED
+  REJECTED
+  CANCELLED
+}
+
+enum SampleQuality {
+  GOOD
+  ACCEPTABLE
+  POOR
+  REJECTED
+}
+
+model TestResult {
+  id                Int   @id @default(autoincrement())
+  medicalRecordId   Int?  
+  testTypeId        Int   @map("test_type_id")
+  specimenId        Int?  @map("specimen_id")
+
+  // Thông tin lấy mẫu
+  sampleDate        DateTime @map("sample_date")
+  sampleTime        String?  @map("sample_time") 
+  sampleCollectedBy String?  @map("sample_collected_by")
+
+  resultDate        DateTime? @map("result_date")
+  resultTime        String?   @map("result_time") // TIME -> String
+  resultValue       String?   @map("result_value")
+  resultUnit        String?   @db.VarChar(50) @map("result_unit")
+  referenceRange    String?   @map("reference_range")
+
+  // Đánh giá
+  interpretation    Interpretation @default(PENDING)
+  clinicalSignificance String?    @map("clinical_significance")
+
+  // Trạng thái
+  status            TestResultStatus @default(SAMPLE_COLLECTED)
+
+  // Người thực hiện
+  technicianId      Int?     @map("technician_id")
+  reviewedById      Int?     @map("reviewed_by_id")
+  approvedById      Int?     @map("approved_by_id")
+
+  // Ghi chú và đính kèm
+  notes             String?
+  attachments       Json?
+
+  // Chất lượng mẫu
+  sampleQuality     SampleQuality @default(GOOD) @map("sample_quality")
+  rejectionReason   String?       @map("rejection_reason")
+
+  // Relations
+  MedicalRecord MedicalRecord? @relation(fields: [medicalRecordId], references: [id])
+  TestType      TestType       @relation(fields: [testTypeId], references: [id])
+  Specimen      TestSpecimen?  @relation(fields: [specimenId], references: [id])
+  Technician    Doctor?        @relation("TechnicianTestResults", fields: [technicianId], references: [id])
+  Reviewer      Doctor?        @relation("ReviewerTestResults", fields: [reviewedById], references: [id])
+  Approver      Doctor?        @relation("ApproverTestResults", fields: [approvedById], references: [id])
+
+  @@map("test_results")
 }

@@ -23,7 +23,10 @@
     "resetdb": "prisma migrate reset",
     "seed:doctors": "ts-node prisma/seeds/seed.doctors.ts",
     "seed:nurses": "ts-node prisma/seeds/seed.nurses.ts",
-    "seed:patients": "ts-node prisma/seeds/seed.patients.ts"
+    "seed:patients": "ts-node prisma/seeds/seed.patients.ts",
+    "seed:testCategories": "ts-node prisma/seeds/seed.testCategories.ts",
+    "seed:testTypes": "ts-node prisma/seeds/seed.testTypes.ts",
+    "seed:testSpecimens": "ts-node prisma/seeds/seed.testSpecimens.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

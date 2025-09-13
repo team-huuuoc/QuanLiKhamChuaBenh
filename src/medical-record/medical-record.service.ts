@@ -11,12 +11,19 @@ export class MedicalRecordService {
   public async create(dto: CreateMedicalRecordDto) {
     const { date, ...rest } = dto;    
     const handledDate = handleDate(date);
-    return await this.prismaService.medicalRecord.create({
+    const newRecord = await this.prismaService.medicalRecord.create({
       data: {
         ...rest,
         date: handledDate, 
       },
     });
+    // await this.prismaService.patient.update({
+    //   where: {id: dto.patientId},
+    //   data: {
+    //     doctorId: dto.doctorId
+    //   }
+    // })
+    return newRecord
   }
   public async getByPatientId(id: number) {
     return await this.prismaService.medicalRecord.findMany({
