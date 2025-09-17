@@ -1,18 +1,13 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe, HttpStatus } from '@nestjs/common';
 import { DoctorService } from './doctor.service';
-import { CreateDoctorDto } from './dto/create-doctor.dto';
-import { UpdateDoctorDto } from './dto/update-doctor.dto';
 import { StandardResponse } from 'src/response/StandardResponse';
 import { AppMessage } from 'src/response/AppMessage';
+import { CreateDoctorDto } from './dto/create-doctor.dto';
 
 @Controller('doctors')
 export class DoctorController {
   constructor(private readonly doctorService: DoctorService) {}
 
-  @Post()
-  create(@Body() createDoctorDto: CreateDoctorDto) {
-    return this.doctorService.create(createDoctorDto);
-  }
   @Get()
   public async findAll(@Query('page') page?:string , @Query('limit') limit? : string ) {
     const pageNum = page ? parseInt(page, 10) : undefined;
@@ -28,18 +23,20 @@ export class DoctorController {
     return response
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.doctorService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDoctorDto: UpdateDoctorDto) {
-    return this.doctorService.update(+id, updateDoctorDto);
+  @Post()
+  public async create(@Body() dto: CreateDoctorDto){
+    const data = await this.doctorService.create(dto)
+    const response: StandardResponse = {
+      success:true,
+      message: AppMessage.ADDED_SUCCESSFULLY,
+      data,
+      code: HttpStatus.OK
+    }
+    return response
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.doctorService.remove(+id);
+  public async remove(@Param('id') id: string) {
+    return await  this.doctorService.remove(+id);
   }
 }

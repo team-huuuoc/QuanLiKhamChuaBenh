@@ -59,16 +59,23 @@ model Doctor {
   id             Int              @id @default(autoincrement())
   identify       String
   name           String
-  specialty      String
-  department     String
+  gender         Gender?
+  dateOfBirth    DateTime?
   phone          String
   email          String           @unique
+  address        String?          
+  specialty      String?       
+  qualificationLevel String?
   experience     Int
+  certificateCode String?
+  department     String?
+  positions      String?
+  startDateOfWork DateTime?
   status         EmploymentStatus @default(ACTIVE)
+  avatar         String?
+  certificate    String?
   patients       Patient[]
   medicalRecords MedicalRecord[]
-  technicianResults TestResult[] @relation("TechnicianTestResults")
-  reviewerResults   TestResult[] @relation("ReviewerTestResults")
   approverResults   TestResult[] @relation("ApproverTestResults")
 }
 
@@ -92,7 +99,7 @@ model Patient {
   dateOfBirth      DateTime
   gender           Gender
   phone            String
-  address          String
+  address          String          
   idNumber         String          @unique
   insurance        String?
   emergencyContact String
@@ -200,19 +207,18 @@ enum SampleQuality {
 model TestResult {
   id                Int   @id @default(autoincrement())
   medicalRecordId   Int?  
-  testTypeId        Int   @map("test_type_id")
-  specimenId        Int?  @map("specimen_id")
+  testTypeId        Int  
+  specimenId        Int?  
 
   // Thông tin lấy mẫu
-  sampleDate        DateTime @map("sample_date")
-  sampleTime        String?  @map("sample_time") 
-  sampleCollectedBy String?  @map("sample_collected_by")
+  sampleDate        DateTime 
+  sampleTime        String? 
 
-  resultDate        DateTime? @map("result_date")
-  resultTime        String?   @map("result_time") // TIME -> String
+  resultDate        DateTime? 
+  resultTime        String?   
   resultValue       String?   @map("result_value")
-  resultUnit        String?   @db.VarChar(50) @map("result_unit")
-  referenceRange    String?   @map("reference_range")
+  resultUnit        String?   
+  referenceRange    String?  
 
   // Đánh giá
   interpretation    Interpretation @default(PENDING)
@@ -220,10 +226,6 @@ model TestResult {
 
   // Trạng thái
   status            TestResultStatus @default(SAMPLE_COLLECTED)
-
-  // Người thực hiện
-  technicianId      Int?     @map("technician_id")
-  reviewedById      Int?     @map("reviewed_by_id")
   approvedById      Int?     @map("approved_by_id")
 
   // Ghi chú và đính kèm
@@ -238,8 +240,6 @@ model TestResult {
   MedicalRecord MedicalRecord? @relation(fields: [medicalRecordId], references: [id])
   TestType      TestType       @relation(fields: [testTypeId], references: [id])
   Specimen      TestSpecimen?  @relation(fields: [specimenId], references: [id])
-  Technician    Doctor?        @relation("TechnicianTestResults", fields: [technicianId], references: [id])
-  Reviewer      Doctor?        @relation("ReviewerTestResults", fields: [reviewedById], references: [id])
   Approver      Doctor?        @relation("ApproverTestResults", fields: [approvedById], references: [id])
 
   @@map("test_results")

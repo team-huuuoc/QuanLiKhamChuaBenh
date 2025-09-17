@@ -15,12 +15,12 @@ export class PatientService {
   }
   public async create(createPatientDto: CreatePatientDto) {
    await this.checkIdNumber(createPatientDto.idNumber)
-    const user = await this.prismaService.patient.create({
+    const patient = await this.prismaService.patient.create({
       data:{
         ...createPatientDto,
         dateOfBirth: handleDate(createPatientDto.dateOfBirth)} 
     })
-    return user
+    return patient
   }
 
   public async findAll(page: number, limit: number, search?: string, status?: PatientStatus) {
