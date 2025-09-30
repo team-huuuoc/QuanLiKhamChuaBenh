@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { LoginDto } from './dto/login-by-email.dto';
+import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
 import {
   ConflictError,
@@ -11,8 +11,7 @@ import { ErrorCode } from '../response/ErrorCode';
 import { UserService } from '../user/user.service';
 import { ConfigService } from '@nestjs/config';
 import { compareData, hashData } from '../libs/bcrypt/handle.password';
-import { RegisterByEmailDto } from './dto/register-by-email.dto';
-import { RegisterByPhoneDto } from './dto/register-by-phone.dto';
+import { RegisterDto } from './dto/register.dto';
 @Injectable()
 export class AuthService {
   constructor(
@@ -21,7 +20,7 @@ export class AuthService {
     private readonly userService: UserService,
     private readonly configService: ConfigService
   ) {}
-  public async registerByEmail(userInput: RegisterByEmailDto) {
+  public async register(userInput: RegisterDto) {
     let user = await this.userService.getUserByEmail(userInput.email);
     if (user) throw new ConflictError(ErrorCode.EMAIL_IS_EXISTS);
     const hashPassword = await hashData(userInput.password);
@@ -31,14 +30,10 @@ export class AuthService {
         hashedPassword: hashPassword,
         name: userInput.name,
         email: userInput.email,
-        dateOfBirth: userInput.dateOfBirth
-          ? new Date(userInput.dateOfBirth as string)
-          : undefined,
       },
       select: {
         name: true,
         email: true,
-        dateOfBirth: true,
       },
     });
   }
@@ -56,13 +51,10 @@ export class AuthService {
         throw new UnauthorizedError(ErrorCode.PASSWORD_IS_NOT_CORRECT);
       const token = await this._generateToken(user.id, user.email, user.name);
       await this._updateRtHash(user.id, token.refreshToken);
-      return token;
-    }
-    if (userInput.code) {
-      // await this.otpService.verifyOtp(user.email, userInput.code);
-      const token = await this._generateToken(user.id, user.email, user.name);
-      await this._updateRtHash(user.id, token.refreshToken);
-      return token;
+      return {
+        token,
+        user: { name: user.name, email: user.email,id: user.id, role: user.role, department: user.department, status: user.status }
+      };
     }
   }
   public async logout(userId: number) {

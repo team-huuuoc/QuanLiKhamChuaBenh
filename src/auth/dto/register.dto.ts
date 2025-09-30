@@ -2,11 +2,12 @@ import {
   IsDateString,
   IsEmail,
   IsNotEmpty,
+  IsOptional,
   IsString,
   MinLength,
 } from 'class-validator';
 
-export class RegisterByEmailDto {
+export class RegisterDto {
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -20,11 +21,8 @@ export class RegisterByEmailDto {
   @MinLength(6)
   password: string;
 
+  @IsOptional()
   @IsNotEmpty()
   @IsDateString()
   dateOfBirth?: string;
-
-  @IsNotEmpty()
-  @IsString()
-  code: string;
 }

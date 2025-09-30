@@ -39,53 +39,52 @@ enum TreatmentStatus {
 }
 
 model User {
-  id               Int      @id @default(autoincrement())
+  id               Int              @id @default(autoincrement())
   name             String
-  email            String?  @unique
+  email            String?          @unique
   hashedPassword   String
   hashRefreshToken String?
-  role             Role     @default(ADMIN)
-  phoneNumber      String?  @unique
-  avatar           String?
-  gender           Gender?
-  dateOfBirth      DateTime?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  role             Role             @default(ADMIN)
+  department       String?
+  lastLogin        String?
+  status           EmploymentStatus @default(ACTIVE)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
 
   @@map("users")
 }
 
 model Doctor {
-  id             Int              @id @default(autoincrement())
-  identify       String
-  name           String
-  gender         Gender?
-  dateOfBirth    DateTime?
-  phone          String
-  email          String           @unique
-  address        String?          
-  specialty      String?       
+  id                 Int              @id @default(autoincrement())
+  identify           String
+  name               String
+  gender             Gender?
+  dateOfBirth        DateTime?
+  phone              String
+  email              String           @unique
+  address            String?
+  specialty          String?
   qualificationLevel String?
-  experience     Int
-  certificateCode String?
-  department     String?
-  positions      String?
-  startDateOfWork DateTime?
-  status         EmploymentStatus @default(ACTIVE)
-  avatar         String?
-  certificate    String?
-  patients       Patient[]
-  medicalRecords MedicalRecord[]
-  approverResults   TestResult[] @relation("ApproverTestResults")
+  experience         Int
+  certificateCode    String?
+  department         String?
+  positions          String?
+  startDateOfWork    DateTime?
+  status             EmploymentStatus @default(ACTIVE)
+  avatar             String?
+  certificate        String?
+  patients           Patient[]
+  medicalRecords     MedicalRecord[]
+  approverResults    TestResult[]     @relation("ApproverTestResults")
 }
 
 model Nurse {
-  id         Int    @id @default(autoincrement())
+  id         Int              @id @default(autoincrement())
   identify   String
   name       String
   department String
   phone      String
-  email      String  @unique
+  email      String           @unique
   shift      String
   experience Int
   status     EmploymentStatus @default(ACTIVE)
@@ -93,17 +92,17 @@ model Nurse {
 }
 
 model Patient {
-  id               Int             @id @default(autoincrement())
+  id               Int           @id @default(autoincrement())
   identify         String
   name             String
   dateOfBirth      DateTime
   gender           Gender
   phone            String
-  address          String          
-  idNumber         String          @unique
+  address          String
+  idNumber         String        @unique
   insurance        String?
   emergencyContact String
-  createdAt        DateTime        @default(now())
+  createdAt        DateTime      @default(now())
   status           PatientStatus
   roomNumber       String?
   admissionDate    DateTime?
@@ -111,13 +110,13 @@ model Patient {
   doctorId         Int?
   nurseId          Int?
 
-  doctor           Doctor?         @relation(fields: [doctorId], references: [id])
-  nurse            Nurse?          @relation(fields: [nurseId], references: [id])
-  medicalRecords   MedicalRecord[]
+  doctor         Doctor?         @relation(fields: [doctorId], references: [id])
+  nurse          Nurse?          @relation(fields: [nurseId], references: [id])
+  medicalRecords MedicalRecord[]
 }
 
 model MedicalRecord {
-  id        Int          @id @default(autoincrement())
+  id        Int             @id @default(autoincrement())
   patientId Int
   doctorId  Int
   date      DateTime
@@ -127,26 +126,26 @@ model MedicalRecord {
   notes     String?
   status    TreatmentStatus @default(UNDER_TREATMENT)
 
-  Doctor    Doctor   @relation(fields: [doctorId], references: [id])
-  Patient   Patient  @relation(fields: [patientId], references: [id])
+  Doctor      Doctor       @relation(fields: [doctorId], references: [id])
+  Patient     Patient      @relation(fields: [patientId], references: [id])
   TestResults TestResult[]
 }
 
 model TestCategory {
-  id           Int   @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   name         String
   description  String?
-  displayOrder Int      @default(0)
-  isActive     Boolean  @default(true)
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at")
+  displayOrder Int        @default(0)
+  isActive     Boolean    @default(true)
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @default(now()) @updatedAt @map("updated_at")
+  TestTypes    TestType[]
 
   @@map("test_categories")
-  TestTypes TestType[]
 }
 
 model TestType {
-  id                  Int   @id @default(autoincrement())
+  id                  Int      @id @default(autoincrement())
   categoryId          Int
   name                String
   code                String?  @unique
@@ -156,19 +155,19 @@ model TestType {
   normalValues        String?
   specimenType        String?
   processingTimeHours Int      @default(24)
-  cost                Decimal? @db.Decimal(10,2)
+  cost                Decimal? @db.Decimal(10, 2)
   isActive            Boolean  @default(true)
   createdAt           DateTime @default(now()) @map("created_at")
   updatedAt           DateTime @default(now()) @updatedAt @map("updated_at")
 
-  category TestCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  category    TestCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   TestResults TestResult[]
 
   @@map("test_types")
 }
 
 model TestSpecimen {
-  id                     Int   @id @default(autoincrement())
+  id                     Int      @id @default(autoincrement())
   name                   String
   description            String?
   collectionInstructions String?  @map("collection_instructions")
@@ -205,36 +204,36 @@ enum SampleQuality {
 }
 
 model TestResult {
-  id                Int   @id @default(autoincrement())
-  medicalRecordId   Int?  
-  testTypeId        Int  
-  specimenId        Int?  
+  id              Int  @id @default(autoincrement())
+  medicalRecordId Int?
+  testTypeId      Int
+  specimenId      Int?
 
   // Thông tin lấy mẫu
-  sampleDate        DateTime 
-  sampleTime        String? 
+  sampleDate DateTime
+  sampleTime String?
 
-  resultDate        DateTime? 
-  resultTime        String?   
-  resultValue       String?   @map("result_value")
-  resultUnit        String?   
-  referenceRange    String?  
+  resultDate     DateTime?
+  resultTime     String?
+  resultValue    String?   @map("result_value")
+  resultUnit     String?
+  referenceRange String?
 
   // Đánh giá
-  interpretation    Interpretation @default(PENDING)
-  clinicalSignificance String?    @map("clinical_significance")
+  interpretation       Interpretation @default(PENDING)
+  clinicalSignificance String?        @map("clinical_significance")
 
   // Trạng thái
-  status            TestResultStatus @default(SAMPLE_COLLECTED)
-  approvedById      Int?     @map("approved_by_id")
+  status       TestResultStatus @default(SAMPLE_COLLECTED)
+  approvedById Int?             @map("approved_by_id")
 
   // Ghi chú và đính kèm
-  notes             String?
-  attachments       Json?
+  notes       String?
+  attachments Json?
 
   // Chất lượng mẫu
-  sampleQuality     SampleQuality @default(GOOD) @map("sample_quality")
-  rejectionReason   String?       @map("rejection_reason")
+  sampleQuality   SampleQuality @default(GOOD) @map("sample_quality")
+  rejectionReason String?       @map("rejection_reason")
 
   // Relations
   MedicalRecord MedicalRecord? @relation(fields: [medicalRecordId], references: [id])

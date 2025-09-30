@@ -14,11 +14,7 @@ export class UserService {
         id: true,
         name: true,
         email: true,
-        gender: true,
-        dateOfBirth: true,
-        role: true,
-        avatar: true,
-        phoneNumber: true,
+        role: true
       },
     });
     if (!user) throw new UnauthorizedError(ErrorCode.DATA_NOT_FOUND);
@@ -36,13 +32,5 @@ export class UserService {
       where: { email },
     });
     return user;
-  }
-  public async updateUserAvatar(userId: number, avatarUrl: string) {
-    return await this.prismaService.user.update({
-      where: { id: userId },
-      data: {
-        avatar: avatarUrl,
-      },
-    });
   }
 }
